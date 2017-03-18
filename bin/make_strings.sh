@@ -5,7 +5,7 @@ root_dir="$(cd $(dirname $(dirname "${BASH_SOURCE[0]}")) && pwd)"
 echo '<?php'
 echo
 echo '$strings = [';
-grep -Pro '\$this->_\(.+?\)' $root_dir | while read -r hit ; do
+grep -Pro '\$this->_\(.+?\)' $root_dir | sort | uniq | while read -r hit ; do
     path=$(echo "$hit" | cut -d: -f1)
     path=${path:$((${#root_dir}+1))}
     line=$(echo "$hit" | cut -d: -f2-)
