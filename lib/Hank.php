@@ -6,7 +6,7 @@ class Hank {
 
     const PLUGIN_NAME = 'hank';
     const PLUGIN_AUTHOR = 'ceph';
-    const PLUGIN_VERSION = '3.2.0';
+    const PLUGIN_VERSION = '3.3.0';
     const PLUGIN_LICENSE = 'GPL3';
     const PLUGIN_CHARSET = '';
     const PLUGIN_DESC = 'A shitty IRC bot that abuses curl and other shell commands, and websites in general.';
@@ -119,10 +119,11 @@ class Hank {
         }
     }
 
-    function chat(string $server, string $target, string $msg) {
+    function chat(string $server, string $target, string $msg, $wait = null) {
         $lines = explode("\n", $msg);
+        $wait_cmd = $wait ? "/wait {$wait} " : '';
         foreach ($lines as $line) {
-            weechat_command('', "/msg -server {$server} {$target} {$line}");
+            weechat_command('', "{$wait_cmd}/msg -server {$server} {$target} {$line}");
         }
     }
 

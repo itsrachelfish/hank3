@@ -7,6 +7,8 @@ class Module_Tell implements Module {
     use Ago;
     use Attributes;
 
+    private $db;
+
     function help(): array {
         return [
             [ '?tell', $this->_('<who> <what>', __CLASS__), $this->_('Leave a message', __CLASS__) ],
@@ -14,7 +16,8 @@ class Module_Tell implements Module {
     }
 
     function init($hank) {
-        if ($this->initDb()) {
+        if ($db = $this->initDb()) {
+            $this->db = $db;
             $hank->registerCommand('?tell', [$this, 'queue']);
             $hank->registerCatchall([$this, 'maybeDequeue']);
         }

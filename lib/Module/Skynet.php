@@ -10,6 +10,9 @@ class Module_Skynet implements Module {
     private $odds_shouting = 7;
     private $odds_provoked = 5;
     private $odds_ross = 3;
+    private $wait_odds = 10;
+    private $wait_min = 3600 / 2;
+    private $wait_max = 3600 * 12;
     private $youtube_api_key = 'AIzaSyAiYfOvXjvhwUFZ1VPn696guJcd2TJ-Lek';
     private $textblob_proc = null;
     private $textblob_pipes = [];
@@ -98,7 +101,10 @@ class Module_Skynet implements Module {
             escapeshellarg('s/,$//') // sed
         );
         $this->curlCmd($url, $pipeline, function($res) use ($c) {
-            $c->hank->chat($c->server, $c->target, $res);
+            $wait = random_int(1, $this->wait_odds) === 1
+                ? random_int($this->wait_min, $this->wait_max)
+                : null;
+            $c->hank->chat($c->server, $c->target, $res, $wait);
         });
     }
 

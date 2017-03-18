@@ -30,7 +30,7 @@ class Module_YtStat implements Module {
             'textFormat' => 'plainText',
         ]);
         $this->curlCmd($url, 'cat', function($res) use ($c) {
-            $jres = json_decode($res, true);
+            $jres = @json_decode($res, true);
             $item = $jres['items'][0] ?? null;
             if (!$item) {
                 return;

@@ -28,10 +28,10 @@ class Module_Youtube implements Module {
         );
         $this->curlCmd($url, $pipeline, function($res) use ($c, $term) {
             $c->hank->chat($c->server, $c->target, sprintf(
-                $this->_("Result for %s: http://youtu.be/%s", __CLASS__)),
+                $this->_("Result for %s: http://youtu.be/%s", __CLASS__),
                 $term,
                 $res
-            );
+            ));
             $c->cmd_func = null;
             $c->text = "http://youtu.be/{$res}";
             $c->hank->process($c);
