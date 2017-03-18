@@ -91,6 +91,7 @@ class Hank {
             $channel = $info['channel'];
             $nick = $info['nick'];
             $text = $info['text'];
+            $nick_host = $info['host'];
             $server_channel = "$server,$channel";
             $my_nick = weechat_info_get('irc_nick', $server);
             $is_channel = $channel !== $my_nick;
@@ -101,7 +102,7 @@ class Hank {
             $context = (object)compact(
                 'hank', 'server', 'channel', 'server_channel', 'nick', 'text',
                 'target', 'my_nick', 'buffer', 'cmd_name', 'cmd_func', 'cmd_param',
-                'ts', 'is_channel'
+                'ts', 'is_channel', 'nick_host'
             );
             $this->process($context);
             return WEECHAT_RC_OK;
