@@ -6,13 +6,14 @@ class Hank {
 
     const PLUGIN_NAME = 'hank';
     const PLUGIN_AUTHOR = 'ceph';
-    const PLUGIN_VERSION = '3.3.0';
+    const PLUGIN_VERSION = '3.4.0';
     const PLUGIN_LICENSE = 'GPL3';
     const PLUGIN_CHARSET = '';
     const PLUGIN_DESC = 'A shitty IRC bot that abuses curl and other shell commands, and websites in general.';
 
     private $options = [
         'strings_path' => '',
+        'cmd_leaders' => '?' . '>',
     ];
     private $modules = [];
     private $command_callbacks = [];
@@ -129,9 +130,13 @@ class Hank {
 
     function extractCommand(string $text): array {
         $cmd_pieces = preg_split('/\s+/', $text, 2);
-        $cmd_name = $cmd_pieces[0];
+        $cmd_leader_and_name = $cmd_pieces[0];
+        $cmd_leader = substr($cmd_leader_and_name, 0, 1);
+        $cmd_name = substr($cmd_leader_and_name, 1);
         $cmd_param = $cmd_pieces[1] ?? '';
-        if (isset($this->command_callbacks[$cmd_name])) {
+        $is_cmd = strpos($this->options['cmd_leaders'], $cmd_leader) !== false
+            && isset($this->command_callbacks[$cmd_name]);
+        if ($is_cmd) {
             return [$cmd_name, $this->command_callbacks[$cmd_name], $cmd_param];
         }
         return [null, null, null];
@@ -154,6 +159,10 @@ class Hank {
         }, array_filter($output));
         sort($classes);
         return $classes;
+    }
+
+    function getCmdLeader(): string {
+        return substr($this->options['cmd_leaders'], 0, 1);
     }
 
     function shutdownPlugin() {

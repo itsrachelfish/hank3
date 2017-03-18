@@ -13,16 +13,16 @@ class Module_Weather implements Module {
 
     function help(): array {
         return [
-            [ '?weather',  $this->_('<where>', __CLASS__), $this->_('Current weather', __CLASS__) ],
-            [ '?forecast', $this->_('<where>', __CLASS__), $this->_('Forecast', __CLASS__) ],
+            [ 'weather',  $this->_('<where>', __CLASS__), $this->_('Current weather', __CLASS__) ],
+            [ 'forecast', $this->_('<where>', __CLASS__), $this->_('Forecast', __CLASS__) ],
         ];
     }
 
     function init($hank) {
         if ($db = $this->initDb()) {
             $this->db = $db;
-            $hank->registerCommand('?weather',  function($c) { $this->doWeather($c, 'weather'); });
-            $hank->registerCommand('?forecast', function($c) { $this->doWeather($c, 'forecast/daily'); });
+            $hank->registerCommand('weather',  function($c) { $this->doWeather($c, 'weather'); });
+            $hank->registerCommand('forecast', function($c) { $this->doWeather($c, 'forecast/daily'); });
         }
     }
 

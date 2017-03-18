@@ -9,32 +9,32 @@ class Module_Image implements Module {
 
     function help(): array {
         return [
-            [ '?im',   $this->_('<what>', __CLASS__), $this->_("Return top image result", __CLASS__) ],
-            [ '?ir',   $this->_('<what>', __CLASS__), $this->_("Return random image result", __CLASS__) ],
-            [ '?gif',  $this->_('<what>', __CLASS__), $this->_("Return top gif result", __CLASS__) ],
-            [ '?gifr', $this->_('<what>', __CLASS__), $this->_("Return random gif result", __CLASS__) ],
-            [ '?tu',   $this->_('<what>', __CLASS__), $this->_("Return top tumblr image result", __CLASS__) ],
-            [ '?tur',  $this->_('<what>', __CLASS__), $this->_("Return random tumblr image result", __CLASS__) ],
+            [ 'im',   $this->_('<what>', __CLASS__), $this->_("Return top image result", __CLASS__) ],
+            [ 'ir',   $this->_('<what>', __CLASS__), $this->_("Return random image result", __CLASS__) ],
+            [ 'gif',  $this->_('<what>', __CLASS__), $this->_("Return top gif result", __CLASS__) ],
+            [ 'gifr', $this->_('<what>', __CLASS__), $this->_("Return random gif result", __CLASS__) ],
+            [ 'tu',   $this->_('<what>', __CLASS__), $this->_("Return top tumblr image result", __CLASS__) ],
+            [ 'tur',  $this->_('<what>', __CLASS__), $this->_("Return random tumblr image result", __CLASS__) ],
         ];
     }
 
     function init($hank) {
-        $hank->registerCommand('?im', function($c) {
+        $hank->registerCommand('im', function($c) {
             $this->findImage($c, 'head', '', [ 'site' => '', 'source' => 'hp' ]);
         });
-        $hank->registerCommand('?ir', function($c) {
+        $hank->registerCommand('ir', function($c) {
             $this->findImage($c, 'shuf', '', [ 'site' => '', 'source' => 'hp' ]);
         });
-        $hank->registerCommand('?gif', function($c) {
+        $hank->registerCommand('gif', function($c) {
             $this->findImage($c, 'head', '', [ 'tbs' => 'itp:animated' ]);
         });
-        $hank->registerCommand('?gifr', function($c) {
+        $hank->registerCommand('gifr', function($c) {
             $this->findImage($c, 'shuf', '', [ 'tbs' => 'itp:animated' ]);
         });
-        $hank->registerCommand('?tu', function($c) {
+        $hank->registerCommand('tu', function($c) {
             $this->findImage($c, 'head', 'site:tumblr.com ', [ 'site' => '', 'source' => 'hp' ]);
         });
-        $hank->registerCommand('?tur', function($c) {
+        $hank->registerCommand('tur', function($c) {
             $this->findImage($c, 'shuf', 'site:tumblr.com ', [ 'site' => '', 'source' => 'hp' ]);
         });
     }

@@ -5,15 +5,17 @@ class Module_Help implements Module {
     use Strings;
     use Attributes;
 
+    private $leader;
+
     function help(): array {
         return [
-            [ '?help', '',                           $this->_('Show help for everything', __CLASS__) ],
-            [ '?help', $this->_('<cmd>', __CLASS__), $this->_('Show cmd help', __CLASS__) ],
+            [ 'help', $this->_('<cmd>', __CLASS__), $this->_('Show cmd help', __CLASS__) ],
         ];
     }
 
     function init($hank) {
-        $hank->registerCommand('?help', function($c) {
+        $this->leader = $hank->getCmdLeader();
+        $hank->registerCommand('help', function($c) {
             list($help_list, $help_map) = $this->getHelpEntries($c->hank);
             $cmd_name = trim($c->cmd_param);
             if (empty($cmd_name)) {
@@ -64,20 +66,21 @@ class Module_Help implements Module {
                 return max(strlen($help_tuple[$col]), $maxw);
             };
         };
-        $maxw_cmd_name = array_reduce($help_list, $maxw_func_gen(0));
+        $maxw_cmd_name = array_reduce($help_list, $maxw_func_gen(0)) + 1; // +1 for leader char
         $maxw_cmd_args = array_reduce($help_list, $maxw_func_gen(1));
         $fmt = ">   {$this->_lightgreen}%{$maxw_cmd_name}s{$this->_reset}" .
             "  {$this->_green}%-{$maxw_cmd_args}s{$this->_reset}" .
             "  %s";
         $help = $this->_("Help", __CLASS__) . ":\n";
         foreach ($help_list as $help_tuple) {
-            $help .= sprintf($fmt, $help_tuple[0], $help_tuple[1], $help_tuple[2]) . "\n";
+            $help .= sprintf($fmt, $this->leader . $help_tuple[0], $help_tuple[1], $help_tuple[2]) . "\n";
         }
         return rtrim($help);
     }
 
     function getHelp(array $help_tuple): string {
-        return "{$this->_lightgreen}{$help_tuple[0]}{$this->_reset}" .
+        return "{$this->_lightgreen}{$this->leader}" .
+            "{$help_tuple[0]}{$this->_reset}" .
             "  {$this->_green}{$help_tuple[1]}{$this->_reset}" .
             "  {$help_tuple[2]}";
     }

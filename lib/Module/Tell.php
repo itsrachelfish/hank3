@@ -11,14 +11,14 @@ class Module_Tell implements Module {
 
     function help(): array {
         return [
-            [ '?tell', $this->_('<who> <what>', __CLASS__), $this->_('Leave a message', __CLASS__) ],
+            [ 'tell', $this->_('<who> <what>', __CLASS__), $this->_('Leave a message', __CLASS__) ],
         ];
     }
 
     function init($hank) {
         if ($db = $this->initDb()) {
             $this->db = $db;
-            $hank->registerCommand('?tell', [$this, 'queue']);
+            $hank->registerCommand('tell', [$this, 'queue']);
             $hank->registerCatchall([$this, 'maybeDequeue']);
         }
     }

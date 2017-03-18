@@ -12,12 +12,12 @@ class Module_Wolfram implements Module {
 
     function help(): array {
         return [
-            [ '?wa', $this->_('<what>', __CLASS__), $this->_('Do a wolfram search', __CLASS__) ],
+            [ 'wa', $this->_('<what>', __CLASS__), $this->_('Do a wolfram search', __CLASS__) ],
         ];
     }
 
     function init($hank) {
-        $hank->registerCommand('?wa', [ $this, 'doWolfram' ]);
+        $hank->registerCommand('wa', [ $this, 'doWolfram' ]);
     }
 
     function doWolfram($c) {

@@ -9,14 +9,14 @@ class Module_Twitter implements Module {
 
     function help(): array {
         return [
-            [ '?tw', $this->_('<what>', __CLASS__), $this->_("Return top twitter search result", __CLASS__) ],
-            [ '?tr', $this->_('<what>', __CLASS__), $this->_("Return random twitter search result", __CLASS__) ],
+            [ 'tw', $this->_('<what>', __CLASS__), $this->_("Return top twitter search result", __CLASS__) ],
+            [ 'tr', $this->_('<what>', __CLASS__), $this->_("Return random twitter search result", __CLASS__) ],
         ];
     }
 
     function init($hank) {
-        $hank->registerCommand('?tw', function($c) { $this->findTweet($c, 'head'); });
-        $hank->registerCommand('?tr', function($c) { $this->findTweet($c, 'shuf'); });
+        $hank->registerCommand('tw', function($c) { $this->findTweet($c, 'head'); });
+        $hank->registerCommand('tr', function($c) { $this->findTweet($c, 'shuf'); });
     }
 
     function findTweet($c, $shuf_or_head) {

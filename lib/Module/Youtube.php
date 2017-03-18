@@ -9,12 +9,12 @@ class Module_Youtube implements Module {
 
     function help(): array {
         return [
-            [ '?yt', $this->_('<what>', __CLASS__), $this->_('Do a youtube search', __CLASS__) ],
+            [ 'yt', $this->_('<what>', __CLASS__), $this->_('Do a youtube search', __CLASS__) ],
         ];
     }
 
     function init($hank) {
-        $hank->registerCommand('?yt', [ $this, 'doYoutube' ]);
+        $hank->registerCommand('yt', [ $this, 'doYoutube' ]);
     }
 
     function doYoutube($c) {

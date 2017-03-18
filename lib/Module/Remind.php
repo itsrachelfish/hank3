@@ -9,14 +9,14 @@ class Module_Remind implements Module {
 
     function help(): array {
         return [
-            [ '?remind',  $this->_('<when> <what>', __CLASS__), $this->_('Send a reminder', __CLASS__) ],
-            [ '?remindp', $this->_('<when> <what>', __CLASS__), $this->_('Send a reminder, private', __CLASS__) ],
+            [ 'remind',  $this->_('<when> <what>', __CLASS__), $this->_('Send a reminder', __CLASS__) ],
+            [ 'remindp', $this->_('<when> <what>', __CLASS__), $this->_('Send a reminder, private', __CLASS__) ],
         ];
     }
 
     function init($hank) {
-        $hank->registerCommand('?remind',  function($c) { $this->doRemind($c, $private=false); });
-        $hank->registerCommand('?remindp', function($c) { $this->doRemind($c, $private=true); });
+        $hank->registerCommand('remind',  function($c) { $this->doRemind($c, $private=false); });
+        $hank->registerCommand('remindp', function($c) { $this->doRemind($c, $private=true); });
     }
 
     function doRemind($c, bool $private) {

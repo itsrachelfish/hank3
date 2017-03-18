@@ -9,12 +9,12 @@ class Module_Google implements Module {
 
     function help(): array {
         return [
-            [ '?g', $this->_('<what>', __CLASS__), $this->_('Do a google search', __CLASS__) ],
+            [ 'g', $this->_('<what>', __CLASS__), $this->_('Do a google search', __CLASS__) ],
         ];
     }
 
     function init($hank) {
-        $hank->registerCommand('?g', [ $this, 'doGoogle' ]);
+        $hank->registerCommand('g', [ $this, 'doGoogle' ]);
     }
 
     function doGoogle($c) {
