@@ -53,9 +53,9 @@ class Module_YtStat implements Module {
                 "{$this->_lightred}%s{$this->_reset}]",
                 $item['snippet']['title'],
                 $dur_formatted,
-                number_format((float)$item['statistics']['viewCount']),
-                number_format((float)$item['statistics']['likeCount']),
-                number_format((float)$item['statistics']['dislikeCount'])
+                number_format((float)($item['statistics']['viewCount'] ?? 0)),
+                number_format((float)($item['statistics']['likeCount'] ?? 0)),
+                number_format((float)($item['statistics']['dislikeCount'] ?? 0))
             ));
         });
     }
